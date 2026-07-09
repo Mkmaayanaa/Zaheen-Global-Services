@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Zaheen Global Services",
+  "description": "An elegant gemstone catalog and admin management platform for Zaheen Global Services based in Rikkos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
