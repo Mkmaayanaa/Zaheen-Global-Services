@@ -124,7 +124,7 @@ export function AboutView() {
 
             <div className="mt-8 flex items-center gap-3 text-xs text-gold-300 font-mono">
               <MapPin className="w-4 h-4 text-gold-300" />
-              <span>Plot 42A, Quartz Valley, Rikkos (behind Skysun)</span>
+              <span>Rikkos, behind Skysun Commercial District, Jos Pleatue State Nigeria.</span>
             </div>
           </motion.div>
 
@@ -141,7 +141,7 @@ export function AboutView() {
             <div className="mt-8 space-y-4 text-xs font-mono text-gray-400">
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-gold-300" />
-                <span>08036301091</span>
+                <span>+234 8036301091</span>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-gold-300" />
