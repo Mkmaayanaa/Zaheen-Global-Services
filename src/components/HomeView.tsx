@@ -74,7 +74,7 @@ export function HomeView({ featuredGems, onSelectGem, setView }: HomeViewProps) 
               >
                 Sourcing raw grandeur, cutting precision, and delivering unmatched brilliance. 
                 Based in the mysterious realms of <span className="text-gold-300 font-medium">Rikkos</span>, directly behind Skysun. 
-                We bring you nature’s ultimate masterpieces with certificates of pristine heritage.
+                We bring you nature’s ultimate masterpieces with certificates of pristine heritage. And the company deals with both local and international deals. It can be delivered to you any part of the world.
               </motion.p>
 
               <motion.div 
