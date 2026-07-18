@@ -247,11 +247,11 @@ export default function App() {
             <div className="md:col-span-4 space-y-3 font-mono text-[11px] text-gray-500">
               <div className="flex items-center gap-2 justify-center md:justify-start">
                 <MapPin className="w-4 h-4 text-gold-500/60" />
-                <span>Rikkos, behind Skysun Commercial District</span>
+                <span>Rikkos, behind Skysun Commercial District, Jos Pleatue State Nigeria.</span>
               </div>
               <div className="flex items-center gap-2 justify-center md:justify-start">
                 <Phone className="w-4 h-4 text-gold-500/60" />
-                <span>08036301091</span>
+                <span>+234 8036301091</span>
               </div>
               <div className="flex items-center gap-2 justify-center md:justify-start">
                 <Mail className="w-4 h-4 text-gold-500/60" />
