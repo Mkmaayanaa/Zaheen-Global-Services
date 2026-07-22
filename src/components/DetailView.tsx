@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, MessageCircle, FileCheck, HelpCircle, ChevronLeft, ChevronRight, Eye, Download, Gem, Mail, Phone, Send, User } from 'lucide-react';
 import { Gemstone } from '../types.js';
@@ -458,14 +459,14 @@ ${clientMessage}`;
 
       {/* FULL CERTIFICATE MODAL */}
       <AnimatePresence>
-        {showCertModal && gemstone.certificate && (
+        {showCertModal && gemstone.certificate && createPortal(
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/65 backdrop-blur-lg flex items-center justify-center p-4"
+            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-lg flex items-center justify-center p-4"
           >
-            <div className="relative max-w-4xl w-full bg-black/80 border border-white/10 backdrop-blur-md rounded-2xl overflow-hidden p-6 shadow-2xl flex flex-col max-h-[90vh]">
+            <div className="relative max-w-4xl w-full bg-[#090d16] border border-white/10 rounded-2xl overflow-hidden p-6 shadow-2xl flex flex-col max-h-[90vh]">
               
               <div className="flex items-center justify-between border-b border-gold-300/10 pb-4 mb-4">
                 <h3 className="font-serif text-lg text-white font-medium">
@@ -524,7 +525,8 @@ ${clientMessage}`;
               </div>
 
             </div>
-          </motion.div>
+          </motion.div>,
+          document.body
         )}
       </AnimatePresence>
 
