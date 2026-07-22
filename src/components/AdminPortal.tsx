@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { 
   Lock, KeyRound, Mail, Plus, Trash2, Edit2, ArrowUp, ArrowDown, 
   Sparkles, CheckCircle2, X, Upload, FileSpreadsheet, Eye, RefreshCw, AlertCircle
@@ -593,12 +594,12 @@ export function AdminPortal({
       </div>
 
       {/* 1. ADD / EDIT DRAWER FORM OVERLAY */}
-      {isDrawerOpen && (
-        <div className="fixed inset-0 z-50 overflow-hidden flex justify-end bg-black/50 backdrop-blur-md">
-          <div className="w-full max-w-2xl bg-black/80 border-l border-white/10 shadow-2xl backdrop-blur-md flex flex-col h-full overflow-y-auto p-6 md:p-8 space-y-6 text-[#F5F2ED]">
+      {isDrawerOpen && createPortal(
+        <div className="fixed inset-0 z-[100] flex justify-end bg-black/75 backdrop-blur-md">
+          <div className="w-full max-w-2xl bg-[#090d16] border-l border-white/10 shadow-2xl flex flex-col h-full overflow-hidden text-[#F5F2ED]">
             
-            {/* Drawer Header */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            {/* Drawer Header (Pinned at top) */}
+            <div className="flex items-center justify-between border-b border-white/10 p-6 md:p-8 bg-[#090d16] shrink-0 z-10">
               <div>
                 <span className="text-[10px] font-mono tracking-widest text-gold-300 uppercase block">Registry Record</span>
                 <h3 className="font-serif text-xl text-white font-medium">
@@ -606,15 +607,16 @@ export function AdminPortal({
                 </h3>
               </div>
               <button
+                type="button"
                 onClick={() => setIsDrawerOpen(false)}
-                className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white cursor-pointer"
+                className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white cursor-pointer transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* FORM CONTAINER */}
-            <form onSubmit={handleFormSubmit} className="space-y-6 flex-1">
+            {/* FORM CONTAINER (Scrollable Body) */}
+            <form id="gemstone-form" onSubmit={handleFormSubmit} className="space-y-6 flex-1 overflow-y-auto p-6 md:p-8">
               
               {/* Form level errors */}
               {formError && (
@@ -805,34 +807,36 @@ export function AdminPortal({
                 </div>
               </div>
 
-              {/* Footer action buttons */}
-              <div className="border-t border-white/10 pt-6 flex justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={() => setIsDrawerOpen(false)}
-                  className="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-white font-serif text-xs rounded-xl cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={isSavingForm}
-                  className="px-6 py-2.5 bg-gradient-to-r from-gold-500 to-gold-400 text-[#070a13] font-serif font-medium text-xs rounded-xl shadow-lg cursor-pointer"
-                >
-                  {isSavingForm ? 'Saving Record...' : 'Save Gemstone Record'}
-                </button>
-              </div>
-
             </form>
 
+            {/* Sticky Action Footer (Always visible at bottom) */}
+            <div className="border-t border-white/10 p-4 md:p-6 bg-[#090d16] flex justify-end gap-3 shrink-0 z-10">
+              <button
+                type="button"
+                onClick={() => setIsDrawerOpen(false)}
+                className="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-white font-serif text-xs rounded-xl cursor-pointer transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                form="gemstone-form"
+                disabled={isSavingForm}
+                className="px-6 py-2.5 bg-gradient-to-r from-gold-500 to-gold-400 text-[#070a13] font-serif font-medium text-xs rounded-xl shadow-lg cursor-pointer hover:brightness-110 transition-all disabled:opacity-50"
+              >
+                {isSavingForm ? 'Saving Record...' : 'Save Gemstone Record'}
+              </button>
+            </div>
+
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* 2. CONFIRM DELETE MODAL */}
-      {deletingGemId && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="w-full max-w-sm bg-black/80 border border-white/10 backdrop-blur-md rounded-2xl p-6 shadow-2xl space-y-4">
+      {deletingGemId && createPortal(
+        <div className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="w-full max-w-sm bg-[#090d16] border border-white/10 rounded-2xl p-6 shadow-2xl space-y-4">
             
             <div className="text-center space-y-2">
               <div className="w-10 h-10 bg-red-950/40 border border-red-800/20 rounded-full flex items-center justify-center mx-auto text-red-400">
@@ -846,12 +850,14 @@ export function AdminPortal({
 
             <div className="flex gap-3 justify-center pt-2">
               <button
+                type="button"
                 onClick={() => setDeletingGemId(null)}
                 className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-serif rounded-lg cursor-pointer flex-1"
               >
                 No, Retain Spec
               </button>
               <button
+                type="button"
                 onClick={handleDeleteGem}
                 disabled={isDeleting}
                 className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white text-xs font-serif rounded-lg cursor-pointer flex-1"
@@ -861,7 +867,8 @@ export function AdminPortal({
             </div>
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>
